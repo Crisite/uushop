@@ -1,11 +1,16 @@
 package com.puff.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.puff.entity.ProductCategory;
+import com.puff.entity.ProductInfo;
 import com.puff.mapper.ProductCategoryMapper;
+import com.puff.mapper.ProductInfoMapper;
 import com.puff.service.ProductCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.puff.vo.BuyerProductCategoryVO;
+import com.puff.vo.BuyerProductInfoVo;
 import com.puff.vo.ResultVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +30,8 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
 
     @Autowired
     private ProductCategoryMapper productCategoryMapper;
+    @Autowired
+    private ProductInfoMapper productInfoMapper;
 
     @Override
     public List<BuyerProductCategoryVO> buyerProductCategoryVOList() {
@@ -34,6 +41,17 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
             BuyerProductCategoryVO buyerProductCategoryVO = new BuyerProductCategoryVO();
             buyerProductCategoryVO.setName(productCategory.getCategoryName());
             buyerProductCategoryVO.setType(productCategory.getCategoryType());
+//           给goods赋值
+            QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("category_type",productCategory.getCategoryType());
+            List<ProductInfo> productInfoList = this.productInfoMapper.selectList(queryWrapper);
+            List<BuyerProductInfoVo> buyerProductCategoryVOList = new ArrayList<>();
+            for (ProductInfo productInfo : productInfoList) {
+                BuyerProductInfoVo buyerProductInfoVo = new BuyerProductInfoVo();
+                BeanUtils.copyProperties(productInfo,buyerProductInfoVo);
+                buyerProductCategoryVOList.add(buyerProductInfoVo);
+            }
+            buyerProductCategoryVO.setGoods(buyerProductCategoryVOList);
             result.add(buyerProductCategoryVO);
         }
         return result;
