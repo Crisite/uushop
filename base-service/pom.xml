@@ -12,7 +12,7 @@
     <artifactId>base-service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>../repository-services</module>
+        <module>../repository-service</module>
     </modules>
 
     <dependencies>

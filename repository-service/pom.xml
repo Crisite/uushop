@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>repository-services</artifactId>
+    <artifactId>repository-service</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>../common-service</module>
