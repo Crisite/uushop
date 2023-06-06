@@ -1,14 +1,16 @@
 package com.puff.controller;
 
+import com.puff.entity.ProductInfo;
 import com.puff.service.ProductCategoryService;
+import com.puff.service.ProductInfoService;
 import com.puff.vo.BuyerProductCategoryVO;
 import com.puff.vo.ResultVO;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -16,9 +18,33 @@ import java.util.List;
 public class BuyerProductController {
     @Autowired
     private ProductCategoryService productCategoryService;
+    @Autowired
+    private ProductInfoService productInfoService;
 
     @GetMapping("/list")
     public List<BuyerProductCategoryVO> list() {
         return this.productCategoryService.buyerProductCategoryVOList();
+    }
+
+    @GetMapping("/findPriceById/{id}")
+    public BigDecimal findPriceById(@PathVariable("id")int id) {
+        ProductInfo productInfo = this.productInfoService.getById(id);
+        return productInfo.getProductPrice();
+    }
+
+    @GetMapping("/findById/{id}")
+    public ProductInfo findById(@PathVariable("id")int id) {
+        return this.productInfoService.getById(id);
+    }
+
+    @PutMapping("/subStockById/{id}/{quantity}")
+    public Boolean subStockById(@PathVariable("id") Integer id, @PathVariable("quantity") Integer quantity) {
+        ProductInfo productInfo = this.productInfoService.getById(id);
+        Integer productStock = productInfo.getProductStock();
+        Integer result = productStock - quantity;
+        if(result < 0) throw new RuntimeException("库存不足");
+        productInfo.setProductStock(result);
+        this.productInfoService.updateById(productInfo);
+        return true;
     }
 }
