@@ -21,7 +21,8 @@ public class BuyerOrderController {
 
     @PostMapping("create")
     public ResultVO create(@RequestBody BuyerOrderForm buyerOrderForm) {
-        System.out.println(buyerOrderForm);
+        orderMasterService.create(buyerOrderForm);
+//        System.out.println(buyerOrderForm);
         return null;
     }
 }
