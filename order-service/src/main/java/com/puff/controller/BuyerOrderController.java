@@ -1,9 +1,9 @@
 package com.puff.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.puff.form.BuyerOrderForm;
 import com.puff.service.OrderDetailService;
 import com.puff.service.OrderMasterService;
+import com.puff.utils.ResultVOUtil;
 import com.puff.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +19,11 @@ public class BuyerOrderController {
     @Autowired
     private OrderMasterService orderMasterService;
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResultVO create(@RequestBody BuyerOrderForm buyerOrderForm) {
-        orderMasterService.create(buyerOrderForm);
+        String orderId = orderMasterService.create(buyerOrderForm);
+
 //        System.out.println(buyerOrderForm);
-        return null;
+        return ResultVOUtil.success(orderId);
     }
 }

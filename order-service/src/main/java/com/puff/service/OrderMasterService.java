@@ -16,5 +16,6 @@ import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
  * @since 2023-06-06
  */
 public interface OrderMasterService extends IService<OrderMaster> {
-    Boolean create(BuyerOrderForm buyerOrderForm);
+    String create(BuyerOrderForm buyerOrderForm);
+
 }
