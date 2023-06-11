@@ -7,6 +7,8 @@ import com.puff.form.BuyerOrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
+import java.util.List;
+
 /**
  * <p>
  * 订单表 服务类
@@ -17,5 +19,5 @@ import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
  */
 public interface OrderMasterService extends IService<OrderMaster> {
     String create(BuyerOrderForm buyerOrderForm);
-
+    List<OrderMaster> list(Integer buyerId, Integer page, Integer size);
 }

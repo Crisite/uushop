@@ -1,5 +1,7 @@
 package com.puff.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.puff.entity.OrderDetail;
 import com.puff.entity.OrderMaster;
 import com.puff.entity.ProductInfo;
@@ -71,5 +73,18 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
         }
 
         return orderMaster.getOrderId();
+    }
+
+    @Override
+    public List<OrderMaster> list(Integer buyerId, Integer page, Integer size) {
+        Page<OrderMaster> orderMasterPage = new Page<>(page, size);
+        QueryWrapper<OrderMaster> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("buyer_openid", buyerId);
+
+        Page<OrderMaster> resultPage = page(orderMasterPage, queryWrapper);
+
+        System.out.println(resultPage.getOrders());
+
+        return resultPage.getRecords();
     }
 }
