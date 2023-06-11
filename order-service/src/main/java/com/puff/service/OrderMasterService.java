@@ -4,6 +4,7 @@ import com.puff.entity.OrderMaster;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.puff.feign.ProductFeign;
 import com.puff.form.BuyerOrderForm;
+import com.puff.vo.OrderMasterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
@@ -20,4 +21,5 @@ import java.util.List;
 public interface OrderMasterService extends IService<OrderMaster> {
     String create(BuyerOrderForm buyerOrderForm);
     List<OrderMaster> list(Integer buyerId, Integer page, Integer size);
+    OrderMasterVo detail(String orderId);
 }

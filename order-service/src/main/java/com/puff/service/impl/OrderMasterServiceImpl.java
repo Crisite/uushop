@@ -12,11 +12,14 @@ import com.puff.mapper.OrderDetailMapper;
 import com.puff.mapper.OrderMasterMapper;
 import com.puff.service.OrderMasterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.puff.vo.OrderDetailVo;
+import com.puff.vo.OrderMasterVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,5 +89,27 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
         System.out.println(resultPage.getOrders());
 
         return resultPage.getRecords();
+    }
+
+    @Override
+    public OrderMasterVo detail(String orderId) {
+        QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
+        orderMasterQueryWrapper.eq("order_id", orderId);
+        OrderMaster orderMaster = this.orderMasterMapper.selectOne(orderMasterQueryWrapper);
+        OrderMasterVo orderMasterVo = new OrderMasterVo();
+        BeanUtils.copyProperties(orderMaster, orderMasterVo);
+
+        QueryWrapper<OrderDetail> orderDetailQueryWrapper = new QueryWrapper<>();
+        orderDetailQueryWrapper.eq("order_id", orderId);
+        List<OrderDetail> orderDetailList = this.orderDetailMapper.selectList(orderDetailQueryWrapper);
+        ArrayList<OrderDetailVo> orderDetailVoList = new ArrayList<>();
+        for (OrderDetail orderDetail : orderDetailList) {
+            OrderDetailVo orderDetailVo = new OrderDetailVo();
+            BeanUtils.copyProperties(orderDetail, orderDetailVo);
+            orderDetailVoList.add(orderDetailVo);
+        }
+        orderMasterVo.setOrderDetailList(orderDetailVoList);
+
+        return orderMasterVo;
     }
 }

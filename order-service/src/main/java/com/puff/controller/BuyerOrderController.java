@@ -6,6 +6,7 @@ import com.puff.form.BuyerOrderForm;
 import com.puff.service.OrderDetailService;
 import com.puff.service.OrderMasterService;
 import com.puff.utils.ResultVOUtil;
+import com.puff.vo.OrderMasterVo;
 import com.puff.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,13 @@ public class BuyerOrderController {
         List<OrderMaster> orderMasterList = this.orderMasterService.list(buyerId, page, size);
 
         return ResultVOUtil.success(orderMasterList);
+    }
+
+    @GetMapping("detail/{buyerId}/{orderId}")
+    public ResultVO detail(@PathVariable("buyerId") Integer buyerId,
+                           @PathVariable("orderId") String orderid) {
+        OrderMasterVo detail = this.orderMasterService.detail(orderid);
+
+        return ResultVOUtil.success(detail);
     }
 }

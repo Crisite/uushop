@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class OrderMasterVo {
@@ -55,4 +56,6 @@ public class OrderMasterVo {
      * 修改时间
      */
     private LocalDateTime updateTime;
+
+    private List<OrderDetailVo> orderDetailList;
 }
