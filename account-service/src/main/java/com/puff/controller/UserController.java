@@ -82,5 +82,14 @@ public class UserController {
         return ResultVOUtil.success(userVO);
     }
 
+    @GetMapping("/checkToken/{token}")
+    public ResultVO checkToken(@PathVariable("token") String token){
+        boolean b = JwtUtil.checkToken(token);
+        if(!b){
+            throw new ShopException(ResponseEnum.TOKEN_ERROR.getMsg());
+        }
+        return ResultVOUtil.success(null);
+    }
+
 }
 
