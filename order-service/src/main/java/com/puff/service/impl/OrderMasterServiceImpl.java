@@ -92,8 +92,9 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     }
 
     @Override
-    public OrderMasterVo detail(String orderId) {
+    public OrderMasterVo detail(Integer buyerId, String orderId) {
         QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
+        orderMasterQueryWrapper.eq("buyerId", buyerId);
         orderMasterQueryWrapper.eq("order_id", orderId);
         OrderMaster orderMaster = this.orderMasterMapper.selectOne(orderMasterQueryWrapper);
         OrderMasterVo orderMasterVo = new OrderMasterVo();
@@ -112,4 +113,28 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
 
         return orderMasterVo;
     }
+
+    @Override
+    public boolean cancel(Integer buyerId, String orderId) {
+
+        QueryWrapper<OrderDetail> orderMasterQueryWrapper = new QueryWrapper<>();
+        orderMasterQueryWrapper.eq("order_id", orderId);
+        List<OrderDetail> orderDetailList = this.orderDetailMapper.selectList(orderMasterQueryWrapper);
+        for (OrderDetail orderDetail : orderDetailList) {
+            this.productFeign.addStockById(buyerId, orderDetail.getProductQuantity());
+        }
+
+        return this.orderMasterMapper.cancel(buyerId, orderId);
+    }
+
+    @Override
+    public boolean finish(String orderId) {
+        return this.orderMasterMapper.finish(orderId);
+    }
+
+    @Override
+    public boolean pay(Integer buyerId, String orderId) {
+        return this.orderMasterMapper.pay(buyerId, orderId);
+    }
+
 }

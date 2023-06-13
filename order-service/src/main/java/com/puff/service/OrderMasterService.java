@@ -21,5 +21,8 @@ import java.util.List;
 public interface OrderMasterService extends IService<OrderMaster> {
     String create(BuyerOrderForm buyerOrderForm);
     List<OrderMaster> list(Integer buyerId, Integer page, Integer size);
-    OrderMasterVo detail(String orderId);
+    OrderMasterVo detail(Integer buyerId, String orderId);
+    boolean cancel(Integer buyerId, String orderId);
+    boolean finish(String orderId);
+    boolean pay(Integer buyerId, String orderId);
 }

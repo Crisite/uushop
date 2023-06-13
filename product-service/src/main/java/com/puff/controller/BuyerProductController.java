@@ -39,12 +39,12 @@ public class BuyerProductController {
 
     @PutMapping("/subStockById/{id}/{quantity}")
     public Boolean subStockById(@PathVariable("id") Integer id, @PathVariable("quantity") Integer quantity) {
-        ProductInfo productInfo = this.productInfoService.getById(id);
-        Integer productStock = productInfo.getProductStock();
-        Integer result = productStock - quantity;
-        if(result < 0) throw new RuntimeException("库存不足");
-        productInfo.setProductStock(result);
-        this.productInfoService.updateById(productInfo);
-        return true;
+        return this.productInfoService.subStockById(id, quantity);
     }
+
+    @PutMapping("/addStockById/{id}/{quantity}")
+    public Boolean addStockById(@PathVariable("id") Integer id, @PathVariable("quantity") Integer quantity) {
+        return this.productInfoService.addStockById(id, quantity);
+    }
+
 }

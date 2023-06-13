@@ -39,11 +39,34 @@ public class BuyerOrderController {
         return ResultVOUtil.success(orderMasterList);
     }
 
-    @GetMapping("detail/{buyerId}/{orderId}")
+    @GetMapping("/detail/{buyerId}/{orderId}")
     public ResultVO detail(@PathVariable("buyerId") Integer buyerId,
                            @PathVariable("orderId") String orderid) {
-        OrderMasterVo detail = this.orderMasterService.detail(orderid);
+        OrderMasterVo detail = this.orderMasterService.detail(buyerId, orderid);
 
         return ResultVOUtil.success(detail);
     }
+
+    @PutMapping("/cancel/{buyerId}/{orderId}")
+    public ResultVO cancel(@PathVariable("buyerId") Integer buyerId,
+                           @PathVariable("orderId") String orderId) {
+
+        this.orderMasterService.cancel(buyerId, orderId);
+
+        return ResultVOUtil.success(null);
+    }
+
+    @PutMapping("/buyer/order/finish/{orderId}")
+    public ResultVO finish(@PathVariable("orderId") String orderId) {
+        this.orderMasterService.finish(orderId);
+        return ResultVOUtil.success(null);
+    }
+
+    @PutMapping("/buyer/order/pay/{buyerId}/{orderId}")
+    public ResultVO pay(@PathVariable("buyerId") Integer buyerId,
+                        @PathVariable("orderId") String orderId){
+        this.orderMasterService.pay(buyerId, orderId);
+        return ResultVOUtil.success(null);
+    }
+
 }

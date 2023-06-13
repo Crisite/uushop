@@ -16,4 +16,6 @@ public interface ProductFeign {
     ProductInfo findById(@PathVariable("id")int id);
     @PutMapping("/buyer/product/subStockById/{id}/{quantity}")
     Boolean subStockById(@PathVariable("id") Integer id, @PathVariable("quantity") Integer quantity);
+    @PutMapping("/buyer/product/addStockById/{id}/{quantity}")
+    Boolean addStockById(@PathVariable("id") Integer id, @PathVariable("quantity") Integer quantity);
 }
