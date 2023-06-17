@@ -9,6 +9,7 @@ import com.puff.vo.ResultVO;
 import com.puff.vo.SellerProductCategoryVO;
 import com.puff.vo.SellerProductInfoVO2;
 import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -66,5 +67,18 @@ public class SellerProductController {
         SellerProductInfoVO2 sellerProductInfoVO2 = this.productInfoService.findSellerProductInfoByCategory(categoryType, page, size);
 
         return ResultVOUtil.success(sellerProductInfoVO2);
+    }
+
+//    通过ID查询商品
+    @GetMapping("/findById/{id}")
+    public ResultVO findById(@PathVariable Integer id) {
+        return ResultVOUtil.success(this.productInfoService.getById(id));
+    }
+
+//    通过Id删除商品
+    @DeleteMapping("/delete/{id}")
+    public ResultVO delete(@PathVariable Integer id) {
+        this.productInfoService.removeById(id);
+        return ResultVOUtil.success(null);
     }
 }
