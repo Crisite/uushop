@@ -81,4 +81,11 @@ public class SellerProductController {
         this.productInfoService.removeById(id);
         return ResultVOUtil.success(null);
     }
+
+//    修改商品状态
+    @PutMapping("/updateStatus/{id}/{status}")
+    public ResultVO updateStatus(@PathVariable Integer id, @PathVariable Integer status) {
+        this.productInfoService.updateStatus(id,status);
+        return ResultVOUtil.success(null);
+    }
 }

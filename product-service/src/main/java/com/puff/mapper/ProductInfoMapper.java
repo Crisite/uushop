@@ -3,6 +3,7 @@ package com.puff.mapper;
 import com.puff.entity.ProductInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -14,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ProductInfoMapper extends BaseMapper<ProductInfo> {
-
+    Boolean updateStatus(@Param("id") Integer id, @Param("status") Integer status);
 }

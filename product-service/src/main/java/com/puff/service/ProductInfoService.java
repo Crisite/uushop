@@ -17,7 +17,14 @@ import java.util.List;
  */
 public interface ProductInfoService extends IService<ProductInfo> {
     Boolean addStockById(Integer id, Integer quantity);
+
     Boolean subStockById(Integer id, Integer quantity);
+
     SellerProductInfoVO2 sellerProductInfoVO2(Integer page, Integer size);
+
     SellerProductInfoVO2 sellerProductInfoLike(String keyword, Integer page, Integer size);
+
     SellerProductInfoVO2 findSellerProductInfoByCategory(Integer categoryType, Integer page, Integer size);
+
+    void updateStatus(Integer id, Integer status);
+}

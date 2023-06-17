@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2023-06-02
  */
 @Service
-public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements ProductInfoService {
+                public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements ProductInfoService {
 
     @Autowired
     private ProductInfoMapper productInfoMapper;
@@ -79,6 +79,11 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
         queryWrapper.eq("category_type",categoryType);
         Page<ProductInfo> resultPage = this.productInfoMapper.selectPage(productInfoPage, queryWrapper);
         return getSellerProductInfoVO2(resultPage);
+    }
+
+    @Override
+    public void updateStatus(Integer id, Integer status) {
+        this.productInfoMapper.updateStatus(id,status);
     }
 
 
