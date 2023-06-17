@@ -9,6 +9,7 @@ import com.puff.mapper.ProductInfoMapper;
 import com.puff.service.ProductCategoryService;
 import com.puff.service.ProductInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.puff.vo.ProductExcelVO;
 import com.puff.vo.SellerProductInfoVO;
 import com.puff.vo.SellerProductInfoVO2;
 import org.springframework.beans.BeanUtils;
@@ -84,6 +85,24 @@ import java.util.List;
     @Override
     public void updateStatus(Integer id, Integer status) {
         this.productInfoMapper.updateStatus(id,status);
+    }
+
+    @Override
+    public List<ProductExcelVO> excelVOList() {
+        List<ProductInfo> productInfoList = this.productInfoMapper.selectList(null);
+        ArrayList<ProductExcelVO> productExcelVOS = new ArrayList<>();
+        for (ProductInfo productInfo : productInfoList) {
+            ProductExcelVO productExcelVO = new ProductExcelVO();
+            BeanUtils.copyProperties(productInfo,productExcelVO);
+            productExcelVO.setCategoryName(this.productCategoryMapper.findNameByType(productInfo.getCategoryType()));
+            if (productInfo.getProductStatus() == 1) {
+                productExcelVO.setProductStatus("上架");
+            } else {
+                productExcelVO.setProductStatus("下架");
+            }
+            productExcelVOS.add(productExcelVO);
+        }
+        return productExcelVOS;
     }
 
 

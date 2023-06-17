@@ -2,6 +2,7 @@ package com.puff.service;
 
 import com.puff.entity.ProductInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.puff.vo.ProductExcelVO;
 import com.puff.vo.SellerProductInfoVO;
 import com.puff.vo.SellerProductInfoVO2;
 
@@ -27,4 +28,6 @@ public interface ProductInfoService extends IService<ProductInfo> {
     SellerProductInfoVO2 findSellerProductInfoByCategory(Integer categoryType, Integer page, Integer size);
 
     void updateStatus(Integer id, Integer status);
+
+    List<ProductExcelVO> excelVOList();
 }
