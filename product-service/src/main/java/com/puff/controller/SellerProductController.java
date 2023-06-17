@@ -25,6 +25,7 @@ public class SellerProductController {
     @Autowired
     private ProductInfoService productInfoService;
 
+//    查询商品分类
     @GetMapping("/findAllProductCateGory")
     public ResultVO findAllProductCateGory() {
         List<SellerProductCategoryVO> allProductCateGory = this.productCategoryService.findAllProductCateGory();
@@ -35,6 +36,7 @@ public class SellerProductController {
         return ResultVOUtil.success(map);
     }
 
+//    添加商品
     @PostMapping("/add")
     public ResultVO add(@RequestBody ProductInfo productInfo) {
         this.productInfoService.save(productInfo);
@@ -42,9 +44,18 @@ public class SellerProductController {
         return ResultVOUtil.success(null);
     }
 
+//    商品列表
     @GetMapping("/list/{page}/{size}")
     public ResultVO list(@PathVariable Integer page, @PathVariable Integer size) {
         SellerProductInfoVO2 sellerProductInfoVO2 = this.productInfoService.sellerProductInfoVO2(page, size);
+
+        return ResultVOUtil.success(sellerProductInfoVO2);
+    }
+
+//    模糊查询商品
+    @GetMapping("/like/{keyword}/{page}/{size}")
+    public ResultVO like(@PathVariable String keyword, @PathVariable Integer page, @PathVariable Integer size) {
+        SellerProductInfoVO2 sellerProductInfoVO2 = this.productInfoService.sellerProductInfoLike(keyword, page, size);
 
         return ResultVOUtil.success(sellerProductInfoVO2);
     }

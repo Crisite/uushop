@@ -19,6 +19,6 @@ import java.util.List;
  */
 
 public interface ProductCategoryService extends IService<ProductCategory> {
-    public List<BuyerProductCategoryVO> buyerProductCategoryVOList();
+    List<BuyerProductCategoryVO> buyerProductCategoryVOList();
     List<SellerProductCategoryVO> findAllProductCateGory();
 }
