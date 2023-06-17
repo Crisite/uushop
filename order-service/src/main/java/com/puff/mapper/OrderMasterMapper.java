@@ -19,4 +19,5 @@ public interface OrderMasterMapper extends BaseMapper<OrderMaster> {
     boolean cancel(@Param("buyerId") Integer buyerId,@Param("orderId") String orderId);
     boolean finish(@Param("orderId") String orderId);
     boolean pay(@Param("buyerId") Integer buyerId,@Param("orderId") String orderId);
+    boolean sellerCancel(String orderId);
 }

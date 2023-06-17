@@ -138,6 +138,10 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
         return this.orderMasterMapper.pay(buyerId, orderId);
     }
 
+    @Override
+    public Boolean sellerCancel(String orderId) {
+        return this.orderMasterMapper.sellerCancel(orderId);
+    }
 
 
 }

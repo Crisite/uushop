@@ -7,10 +7,7 @@ import com.puff.utils.ResultVOUtil;
 import com.puff.vo.ResultVO;
 import com.puff.vo.SellerOrderListVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/seller/order")
@@ -29,5 +26,16 @@ public class SellerOrderController {
 
         return ResultVOUtil.success(sellerOrderListVO);
     }
+
+    @PutMapping("/cancel/{orderId}")
+    public ResultVO cancel(@PathVariable String orderId) {
+        return ResultVOUtil.success(this.orderMasterService.sellerCancel(orderId));
+    }
+
+    @PutMapping("/finish/{orderId}")
+    public ResultVO finish(@PathVariable String orderId) {
+        return ResultVOUtil.success(this.orderMasterService.finish(orderId));
+    }
+
 
 }

@@ -26,4 +26,5 @@ public interface OrderMasterService extends IService<OrderMaster> {
     boolean cancel(Integer buyerId, String orderId);
     boolean finish(String orderId);
     boolean pay(Integer buyerId, String orderId);
+    Boolean sellerCancel(String orderId);
 }
