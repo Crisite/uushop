@@ -14,6 +14,7 @@ import com.puff.service.OrderMasterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.puff.vo.OrderDetailVo;
 import com.puff.vo.OrderMasterVo;
+import com.puff.vo.SellerOrderListVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -136,5 +137,7 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     public boolean pay(Integer buyerId, String orderId) {
         return this.orderMasterMapper.pay(buyerId, orderId);
     }
+
+
 
 }
