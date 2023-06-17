@@ -4,6 +4,8 @@ import com.puff.entity.ProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.puff.vo.BuyerProductCategoryVO;
 import com.puff.vo.ResultVO;
+import com.puff.vo.SellerProductCategoryVO;
+import com.puff.vo.SellerProductInfoVO;
 
 import java.util.List;
 
@@ -17,6 +19,6 @@ import java.util.List;
  */
 
 public interface ProductCategoryService extends IService<ProductCategory> {
-
     public List<BuyerProductCategoryVO> buyerProductCategoryVOList();
+    List<SellerProductCategoryVO> findAllProductCateGory();
 }

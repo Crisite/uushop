@@ -1,15 +1,14 @@
 package com.puff.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.puff.entity.ProductCategory;
 import com.puff.entity.ProductInfo;
 import com.puff.mapper.ProductCategoryMapper;
 import com.puff.mapper.ProductInfoMapper;
 import com.puff.service.ProductCategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.puff.vo.BuyerProductCategoryVO;
-import com.puff.vo.BuyerProductInfoVo;
-import com.puff.vo.ResultVO;
+import com.puff.vo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,4 +55,21 @@ public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMappe
         }
         return result;
     }
+
+    @Override
+    public List<SellerProductCategoryVO> findAllProductCateGory() {
+        List<ProductCategory> productCategoryList = this.productCategoryMapper.selectList(null);
+        ArrayList<SellerProductCategoryVO> sellerProductCategoryVOS = new ArrayList<>();
+        for (ProductCategory productCategory : productCategoryList) {
+            SellerProductCategoryVO sellerProductCategoryVO = new SellerProductCategoryVO();
+            sellerProductCategoryVO.setName(productCategory.getCategoryName());
+            sellerProductCategoryVO.setType(productCategory.getCategoryType());
+            sellerProductCategoryVOS.add(sellerProductCategoryVO);
+        }
+        return sellerProductCategoryVOS;
+    }
+
+
+
+
 }
