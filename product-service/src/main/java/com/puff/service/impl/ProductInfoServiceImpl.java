@@ -60,7 +60,6 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
     public SellerProductInfoVO2 sellerProductInfoVO2(Integer page, Integer size) {
         Page<ProductInfo> productInfoPage = new Page<>(page, size);
         Page<ProductInfo> resultPage = this.productInfoMapper.selectPage(productInfoPage, null);
-        System.out.println("puffLog"+resultPage.getTotal());
         return getSellerProductInfoVO2(resultPage);
     }
 
@@ -70,11 +69,19 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
         QueryWrapper<ProductInfo> productInfoQueryWrapper = new QueryWrapper<>();
         productInfoQueryWrapper.like("product_name",keyword);
         Page<ProductInfo> resultPage = this.productInfoMapper.selectPage(productInfoPage, productInfoQueryWrapper);
-        System.out.println("puffLog"+resultPage.getTotal());
         return getSellerProductInfoVO2(resultPage);
     }
 
-//   很据查询结果Page返回产品信息列表
+    @Override
+    public SellerProductInfoVO2 findSellerProductInfoByCategory(Integer categoryType, Integer page, Integer size) {
+        Page<ProductInfo> productInfoPage = new Page<>(page, size);
+        QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category_type",categoryType);
+        Page<ProductInfo> resultPage = this.productInfoMapper.selectPage(productInfoPage, queryWrapper);
+        return getSellerProductInfoVO2(resultPage);
+    }
+
+    //   很据查询结果Page返回产品信息列表
     private SellerProductInfoVO2 getSellerProductInfoVO2(Page<ProductInfo> resultPage) {
         ArrayList<SellerProductInfoVO> sellerProductInfoVOS = new ArrayList<>();
         for (ProductInfo productInfo : resultPage.getRecords()) {

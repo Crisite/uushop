@@ -59,4 +59,12 @@ public class SellerProductController {
 
         return ResultVOUtil.success(sellerProductInfoVO2);
     }
+
+//    通过分类查询商品
+    @GetMapping("/findByCategory/{categoryType}/{page}/{size}")
+    public ResultVO like(@PathVariable Integer categoryType, @PathVariable Integer page, @PathVariable Integer size) {
+        SellerProductInfoVO2 sellerProductInfoVO2 = this.productInfoService.findSellerProductInfoByCategory(categoryType, page, size);
+
+        return ResultVOUtil.success(sellerProductInfoVO2);
+    }
 }

@@ -20,4 +20,5 @@ public interface ProductInfoService extends IService<ProductInfo> {
     Boolean subStockById(Integer id, Integer quantity);
     SellerProductInfoVO2 sellerProductInfoVO2(Integer page, Integer size);
     SellerProductInfoVO2 sellerProductInfoLike(String keyword, Integer page, Integer size);
+    SellerProductInfoVO2 findSellerProductInfoByCategory(Integer categoryType, Integer page, Integer size);
 }
