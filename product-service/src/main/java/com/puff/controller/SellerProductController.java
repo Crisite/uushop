@@ -2,6 +2,7 @@ package com.puff.controller;
 
 import com.puff.entity.ProductCategory;
 import com.puff.entity.ProductInfo;
+import com.puff.form.SellerProductInfoUpdateForm;
 import com.puff.service.ProductCategoryService;
 import com.puff.service.ProductInfoService;
 import com.puff.utils.ResultVOUtil;
@@ -10,6 +11,7 @@ import com.puff.vo.SellerProductCategoryVO;
 import com.puff.vo.SellerProductInfoVO2;
 import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Delete;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,4 +90,20 @@ public class SellerProductController {
         this.productInfoService.updateStatus(id,status);
         return ResultVOUtil.success(null);
     }
+
+//    修改商品内容
+    @PutMapping("/update")
+    public ResultVO update(@RequestBody SellerProductInfoUpdateForm sellerProductInfoUpdateForm) {
+        ProductInfo productInfo = new ProductInfo();
+        BeanUtils.copyProperties(sellerProductInfoUpdateForm, productInfo);
+        productInfo.setCategoryType(sellerProductInfoUpdateForm.getCategory().getCategoryType());
+        if (sellerProductInfoUpdateForm.getStatus()) {
+            productInfo.setProductStatus(1);
+        } else {
+            productInfo.setProductStatus(0);
+        }
+        this.productInfoService.updateById(productInfo);
+        return ResultVOUtil.success(null);
+    }
+
 }
