@@ -81,6 +81,7 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
         return getSellerProductInfoVO2(resultPage);
     }
 
+
     //   很据查询结果Page返回产品信息列表
     private SellerProductInfoVO2 getSellerProductInfoVO2(Page<ProductInfo> resultPage) {
         ArrayList<SellerProductInfoVO> sellerProductInfoVOS = new ArrayList<>();
