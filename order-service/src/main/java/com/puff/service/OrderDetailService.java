@@ -2,6 +2,7 @@ package com.puff.service;
 
 import com.puff.entity.OrderDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.puff.vo.BarVO;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-06-06
  */
 public interface OrderDetailService extends IService<OrderDetail> {
-
+    BarVO barData();
 }

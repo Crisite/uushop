@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.puff.mapper.OrderDetailMapper">
-
+    <select id="barData" resultType="barResultVO">
+        select product_name name, IFNULL(sum(product_quantity),0) value from uushop.order_detail d,uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by product_id
+    </select>
 </mapper>

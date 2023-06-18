@@ -2,6 +2,8 @@ package com.puff.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.puff.entity.OrderMaster;
+import com.puff.mapper.OrderDetailMapper;
+import com.puff.service.OrderDetailService;
 import com.puff.service.OrderMasterService;
 import com.puff.utils.ResultVOUtil;
 import com.puff.vo.ResultVO;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 public class SellerOrderController {
     @Autowired
     private OrderMasterService orderMasterService;
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @GetMapping("/list/{page}/{size}")
     public ResultVO list(@PathVariable Integer page, @PathVariable Integer size) {
@@ -37,5 +41,10 @@ public class SellerOrderController {
         return ResultVOUtil.success(this.orderMasterService.finish(orderId));
     }
 
+//    生成订单商品柱状图
+    @PutMapping("/barSale")
+    public ResultVO barSale() {
+        return ResultVOUtil.success(this.orderDetailService.barData());
+    }
 
 }

@@ -2,8 +2,11 @@ package com.puff.mapper;
 
 import com.puff.entity.OrderDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.puff.vo.BarResultVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,5 +18,5 @@ import org.mybatis.spring.annotation.MapperScan;
  */
 @Mapper
 public interface OrderDetailMapper extends BaseMapper<OrderDetail> {
-
+    List<BarResultVO> barData();
 }
