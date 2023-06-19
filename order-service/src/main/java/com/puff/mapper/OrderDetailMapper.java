@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.puff.vo.BarLineResultVO;
 import com.puff.vo.BarLineVO;
 import com.puff.vo.BarResultVO;
+import io.swagger.models.auth.In;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
@@ -22,4 +24,7 @@ import java.util.List;
 public interface OrderDetailMapper extends BaseMapper<OrderDetail> {
     List<BarResultVO> barData();
     List<BarLineResultVO> basicLineData();
+    List<String> names();
+    List<String> dates();
+    List<Integer> stackedData(@Param("name") String name);
 }

@@ -47,8 +47,15 @@ public class SellerOrderController {
         return ResultVOUtil.success(this.orderDetailService.barData());
     }
 
+//    日销量折线图
     @PutMapping("/basicLineSale")
     public ResultVO baiscLineSale() {
         return ResultVOUtil.success(this.orderDetailService.basicLineSale());
+    }
+
+//  堆叠折线图 折线为商品类型 横坐标为日期 总坐标为销量
+    @PutMapping("/stackedLineSale")
+    public ResultVO stackedLineSale() {
+        return ResultVOUtil.success(this.orderDetailService.stackedLineData());
     }
 }

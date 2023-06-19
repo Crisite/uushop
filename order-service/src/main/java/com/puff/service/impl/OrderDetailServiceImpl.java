@@ -56,4 +56,17 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
 
         return new BarLineVO(nameList, valueList);
     }
+
+    @Override
+    public StackedLineVO stackedLineData() {
+        List<String> names = this.orderDetailMapper.names();
+        List<String> dates = this.orderDetailMapper.dates();
+        ArrayList<StackedLineInnerVO> stackedLineInnerVOS = new ArrayList<>();
+        for (String name : names) {
+            List<Integer> innerData = this.orderDetailMapper.stackedData(name);
+            StackedLineInnerVO stackedLineInnerVO = new StackedLineInnerVO(name,innerData);
+            stackedLineInnerVOS.add(stackedLineInnerVO);
+        }
+        return new StackedLineVO(names,dates,stackedLineInnerVOS);
+    }
 }

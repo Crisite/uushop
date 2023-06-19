@@ -4,6 +4,7 @@ import com.puff.entity.OrderDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.puff.vo.BarLineVO;
 import com.puff.vo.BarVO;
+import com.puff.vo.StackedLineVO;
 
 /**
  * <p>
@@ -16,4 +17,5 @@ import com.puff.vo.BarVO;
 public interface OrderDetailService extends IService<OrderDetail> {
     BarVO barData();
     BarLineVO basicLineSale();
+    StackedLineVO stackedLineData();
 }

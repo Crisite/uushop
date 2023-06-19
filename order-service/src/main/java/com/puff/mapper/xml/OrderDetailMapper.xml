@@ -5,6 +5,20 @@
         select product_name name, IFNULL(sum(product_quantity),0) value from uushop.order_detail d,uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by product_id
     </select>
     <select id="basicLineData" resultType="barLineResultVO">
-        select d.create_time date, sum(product_quantity) value from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by d.create_time
+        select DATE_FORMAT(d.create_time, '%Y-%m-%d') date, sum(product_quantity) value from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by d.create_time
     </select>
+    <select id="names" resultType="java.lang.String">
+        select distinct product_name from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and order_status = 1
+    </select>
+
+    <select id="dates" resultType="java.lang.String">
+        select distinct DATE_FORMAT(d.create_time, '%Y-%m-%d') from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and order_status = 1 order by DATE_FORMAT(d.create_time, '%Y-%m-%d')
+    </select>
+
+    <select id="stackedData" resultType="java.lang.Integer">
+        select sum(product_quantity) from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and order_status = 1 and product_name = #{name} group by DATE_FORMAT(d.create_time, '%Y-%m-%d')
+    </select>
+
+
+
 </mapper>
