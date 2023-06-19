@@ -4,4 +4,7 @@
     <select id="barData" resultType="barResultVO">
         select product_name name, IFNULL(sum(product_quantity),0) value from uushop.order_detail d,uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by product_id
     </select>
+    <select id="basicLineData" resultType="barLineResultVO">
+        select d.create_time date, sum(product_quantity) value from uushop.order_detail d, uushop.order_master m where d.order_id = m.order_id and m.order_status = 1 group by d.create_time
+    </select>
 </mapper>

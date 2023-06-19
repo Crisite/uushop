@@ -5,9 +5,7 @@ import com.puff.mapper.OrderDetailMapper;
 import com.puff.service.OrderDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.puff.util.EChartsColorUtil;
-import com.puff.vo.BarDataVO;
-import com.puff.vo.BarResultVO;
-import com.puff.vo.BarVO;
+import com.puff.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +42,18 @@ public class OrderDetailServiceImpl extends ServiceImpl<OrderDetailMapper, Order
             barDataVOList.add(barDataVO);
         }
         return new BarVO(barVONameList, barDataVOList);
+    }
+
+    @Override
+    public BarLineVO basicLineSale() {
+        List<BarLineResultVO> barLineResultVOS = this.orderDetailMapper.basicLineData();
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<Integer> valueList = new ArrayList<>();
+        for (BarLineResultVO barLineResultVO : barLineResultVOS) {
+            nameList.add(barLineResultVO.getDate());
+            valueList.add(barLineResultVO.getValue());
+        }
+
+        return new BarLineVO(nameList, valueList);
     }
 }

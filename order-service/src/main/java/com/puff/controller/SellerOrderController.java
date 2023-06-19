@@ -47,4 +47,8 @@ public class SellerOrderController {
         return ResultVOUtil.success(this.orderDetailService.barData());
     }
 
+    @PutMapping("/basicLineSale")
+    public ResultVO baiscLineSale() {
+        return ResultVOUtil.success(this.orderDetailService.basicLineSale());
+    }
 }
