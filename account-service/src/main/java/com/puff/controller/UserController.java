@@ -70,11 +70,11 @@ public class UserController {
         queryWrapper.eq("mobile", userForm.getMobile());
         User one = this.userService.getOne(queryWrapper);
         if(one == null){
-            throw new ShopException(ResponseEnum.MOBILE_IS_NULL.getMsg());
+            throw new ShopException(ResponseEnum.ACCOUNT_ERROR.getMsg());
         }
         //验证密码
         if (!MD5Util.getSaltverifyMD5(userForm.getPassword(),one.getPassword())) {
-            throw new ShopException(ResponseEnum.PASSWORD_ERROR.getMsg());
+            throw new ShopException(ResponseEnum.ACCOUNT_ERROR.getMsg());
         }
         //生成Token
         String token = JwtUtil.createToken(one.getUserId(), one.getMobile());

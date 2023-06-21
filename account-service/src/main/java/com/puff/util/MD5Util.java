@@ -93,7 +93,7 @@ public class MD5Util {
 
     public static void main(String[] args) {
         // 原密码
-        String plaintext = "123456";
+        String plaintext = "000513";
 
         String s = MD5Util.getSaltMD5(plaintext);
         System.out.println(s);
