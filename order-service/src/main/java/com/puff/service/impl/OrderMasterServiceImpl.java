@@ -95,7 +95,7 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     @Override
     public OrderMasterVo detail(Integer buyerId, String orderId) {
         QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
-        orderMasterQueryWrapper.eq("buyerId", buyerId);
+        orderMasterQueryWrapper.eq("buyer_openid", buyerId);
         orderMasterQueryWrapper.eq("order_id", orderId);
         OrderMaster orderMaster = this.orderMasterMapper.selectOne(orderMasterQueryWrapper);
         OrderMasterVo orderMasterVo = new OrderMasterVo();
