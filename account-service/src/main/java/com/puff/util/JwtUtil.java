@@ -12,7 +12,7 @@ import java.util.UUID;
 public class JwtUtil {
 
     //    private static long tokenExpiration = 1000 * 60 * 60 * 24;
-    private static long tokenExpiration = 1000 * 20;
+    private static long tokenExpiration = 1000 * 60 * 60 * 24;
     private static String tokenSignKey = "a1d23mi789n";
 
     public static String createToken(Integer id,String mobile){
