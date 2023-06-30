@@ -17,6 +17,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class SellerProductController {
     private ProductInfoService productInfoService;
 
 //    查询商品分类
-    @GetMapping("/findAllProductCateGory")
+    @GetMapping("/findAllProductCategory")
     public ResultVO findAllProductCateGory() {
         List<SellerProductCategoryVO> allProductCateGory = this.productCategoryService.findAllProductCateGory();
 
@@ -129,5 +130,22 @@ public class SellerProductController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+//    导入excel
+    @PostMapping("/import")
+    public ResultVO importData(@RequestParam("file") MultipartFile file){
+        List<ProductInfo> productInfoList = null;
+        try {
+            productInfoList = this.productInfoService.excleToProductInfoList(file.getInputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if(productInfoList==null){
+            return ResultVOUtil.fail("导入Excel失败！");
+        }
+        boolean result = this.productInfoService.saveBatch(productInfoList);
+        if(result)return ResultVOUtil.success(null);
+        return ResultVOUtil.fail("导入Excel失败！");
     }
 }

@@ -6,6 +6,7 @@ import com.puff.vo.ProductExcelVO;
 import com.puff.vo.SellerProductInfoVO;
 import com.puff.vo.SellerProductInfoVO2;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -30,4 +31,6 @@ public interface ProductInfoService extends IService<ProductInfo> {
     void updateStatus(Integer id, Integer status);
 
     List<ProductExcelVO> excelVOList();
+
+    List<ProductInfo> excleToProductInfoList(InputStream inputStream);
 }

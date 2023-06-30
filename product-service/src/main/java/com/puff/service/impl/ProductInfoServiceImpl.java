@@ -1,5 +1,8 @@
 package com.puff.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.puff.entity.ProductCategory;
@@ -16,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +32,7 @@ import java.util.List;
  * @since 2023-06-02
  */
 @Service
-                public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements ProductInfoService {
+public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements ProductInfoService {
 
     @Autowired
     private ProductInfoMapper productInfoMapper;
@@ -103,6 +107,38 @@ import java.util.List;
             productExcelVOS.add(productExcelVO);
         }
         return productExcelVOS;
+    }
+    @Override
+    public List<ProductInfo> excleToProductInfoList(InputStream inputStream) {
+        try {
+            List<ProductInfo> list = new ArrayList<>();
+            EasyExcel.read(inputStream)
+                    .head(ProductExcelVO.class)
+                    .sheet()
+                    .registerReadListener(new AnalysisEventListener<ProductExcelVO>() {
+
+                        @Override
+                        public void invoke(ProductExcelVO excelData, AnalysisContext analysisContext) {
+                            ProductInfo productInfo = new ProductInfo();
+                            BeanUtils.copyProperties(excelData, productInfo);
+                            if(excelData.getProductStatus().equals("正常")){
+                                productInfo.setProductStatus(1);
+                            }else{
+                                productInfo.setProductStatus(0);
+                            }
+                            list.add(productInfo);
+                        }
+
+                        @Override
+                        public void doAfterAllAnalysed(AnalysisContext analysisContext) {
+                            log.debug("=========================文件解析完成=========================");
+                        }
+                    }).doRead();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
