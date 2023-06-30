@@ -42,19 +42,19 @@ public class SellerOrderController {
     }
 
 //    生成订单商品柱状图
-    @PutMapping("/barSale")
+    @GetMapping("/barSale")
     public ResultVO barSale() {
         return ResultVOUtil.success(this.orderDetailService.barData());
     }
 
 //    日销量折线图
-    @PutMapping("/basicLineSale")
+    @GetMapping("/basicLineSale")
     public ResultVO baiscLineSale() {
         return ResultVOUtil.success(this.orderDetailService.basicLineSale());
     }
 
 //  堆叠折线图 折线为商品类型 横坐标为日期 总坐标为销量
-    @PutMapping("/stackedLineSale")
+    @GetMapping("/stackedLineSale")
     public ResultVO stackedLineSale() {
         return ResultVOUtil.success(this.orderDetailService.stackedLineData());
     }
