@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class BarVO {
-    private List<String> name;
+    private List<String> names;
     private List<BarDataVO> values;
 }
