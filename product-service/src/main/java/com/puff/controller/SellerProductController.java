@@ -93,8 +93,12 @@ public class SellerProductController {
 
 //    修改商品状态
     @PutMapping("/updateStatus/{id}/{status}")
-    public ResultVO updateStatus(@PathVariable Integer id, @PathVariable Integer status) {
-        this.productInfoService.updateStatus(id,status);
+    public ResultVO updateStatus(@PathVariable Integer id, @PathVariable Boolean status) {
+        if(status) {
+            this.productInfoService.updateStatus(id,1);
+        } else {
+            this.productInfoService.updateStatus(id,0);
+        }
         return ResultVOUtil.success(null);
     }
 
