@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  *  前端控制器
@@ -34,6 +36,7 @@ public class AdminController {
 
     @PostMapping("/login")
     public ResultVO login(@RequestBody AdminForm adminForm) {
+        System.out.println(adminForm.getUsername()+adminForm.getPassword());
         QueryWrapper<Admin> adminQueryWrapper = new QueryWrapper<>();
         adminQueryWrapper.eq("username",adminForm.getUsername());
         Admin admin = this.adminService.getOne(adminQueryWrapper);
@@ -48,8 +51,9 @@ public class AdminController {
         return ResultVOUtil.success(adminVO);
     }
 
-    @GetMapping("/checkToken/{token}")
-    public ResultVO checkToken(@PathVariable("token") String token) {
+    @GetMapping("/checkToken")
+    public ResultVO checkToken(HttpServletRequest httpServletRequest) {
+        String token = httpServletRequest.getHeader("token");
         boolean b = JwtUtil.checkToken(token);
         if(!b) {
             throw new ShopException(ResponseEnum.TOKEN_ERROR.getMsg());
